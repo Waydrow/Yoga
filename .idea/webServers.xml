@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ea8dc4de-5f4f-40fc-bb21-84a7fceacb67" name="Xungui_server" url="http://www.xungui.net">
+        <fileTransfer host="www.xungui.net" port="22" rootFolder="/alidata/www" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
