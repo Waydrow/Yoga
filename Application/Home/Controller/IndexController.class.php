@@ -202,8 +202,9 @@ class IndexController extends Controller {
 
     // 获取消息列表（学员申请绑定场馆）
     public function getStuApplyList() {
+        $vid = $_POST['vid'];
         $vs = M("venue_student");
-        $data = $vs->select();
+        $data = $vs->where('vid=%d', $vid)->select();
         foreach ($data as &$item) {
             $name = M('user')->where("openid='%s'", $item['openid'])->getField('name');
             $item['event'] = $name . '申请成为馆内学员';
@@ -213,8 +214,9 @@ class IndexController extends Controller {
 
     // 日志列表
     public function getLogList() {
+        $vid = $_POST['vid'];
         $log = M('log');
-        $data = $log->select();
+        $data = $log->where('vid=%d', $vid)->select();
         $this->ajaxReturn($data, 'json');
     }
 
