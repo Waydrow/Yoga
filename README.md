@@ -11,7 +11,8 @@
 
 | # | Name | Interface | Method | Send | Return |  
 |---| ---  | --- | --- | ---| --- |
-| 1 | 用户首次登录 | addUser | POST | openid <br> username (微信用户名) | 1: 成功 <br> 0: 失败|
+| 0 | 用户首次登录 | login | POST | code | openid <br> 0: 保存数据库失败|
+| 1 | 保存用户名 | addUserInfo | POST | openid <br> username (微信用户名) | 1: 成功 <br> 0: 失败|
 | 2 | 获取场馆列表  | getVenueList | GET | | id (场馆id) <br> name (场馆名字) <br> address <br> address_detail <br> info (简介) <br> openid (创建者id) |
 | 3 | 按id查找场馆  | getVenueById | POST | id | 单条场馆信息 |
 | 4 | 按name查找场馆 <br>（可能不止一个） | getVenueByName | POST | name | 场馆信息|

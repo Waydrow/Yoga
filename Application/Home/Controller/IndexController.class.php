@@ -6,19 +6,65 @@ use Think\Exception;
 use Think\Upload;
 
 class IndexController extends Controller {
+    
+
 
     public function index() {
         echo 'index';
     }
 
+
+
     // 用户首次登录
-    public function addUser() {
+    public function login() {
+        $code = $_POST['code'];
+
+        $appid = 'wx2239c83348d61f24';
+        $secret = 'd7d5c1e78bb42682890b9ba40f87ecfa';
+        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
+
+        // get openid and session_key
+        $data = file_get_contents($url);
+        $jsonData = json_decode($data);
+        $arr = get_object_vars($jsonData);
+        $openid = $arr['openid'];
+        $session_key = $arr['session_key'];
+
+        $user = M('user');
+        $user->openid = $openid;
+        $user->session_key = $session_key;
+        $res = $user->add();
+        if ($res) {
+            echo $openid;;
+        } else {
+            echo '0'; // 用户openid存入数据库失败
+        }
+    }
+
+    // HTTP请求（支持HTTP/HTTPS，支持GET/POST）
+    private function http_request($url, $data = null)
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+        if (! empty($data)) {
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        $output = curl_exec($curl);
+        curl_close($curl);
+        return $output;
+    }
+
+    // 保存用户名
+    public function addUserInfo() {
         $openid = $_POST['openid'];
         $username = $_POST['username'];
         $user = M('user');
-        $user->openid = $openid;
         $user->username = $username;
-        $res = $user->add();
+        $res = $user->where("openid='%s'", $openid)->save();
         if ($res) {
             echo '1';
         } else {
