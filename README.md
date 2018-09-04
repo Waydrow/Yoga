@@ -11,10 +11,10 @@
 
 | # | Name | Interface | Method | Send | Return |  
 |---| ---  | --- | --- | ---| --- |
-| 0 | 用户首次登录 | login | POST | code | openid <br> 0: 保存数据库失败|
+| 0 | 用户首次登录 | login | GET/POST | code | openid <br> 0: 保存数据库失败|
 | 1 | 保存用户名 | addUserInfo | POST | openid <br> username (微信用户名) | 1: 成功 <br> 0: 失败|
 | 2 | 获取场馆列表  | getVenueList | GET | | id (场馆id) <br> name (场馆名字) <br> address <br> address_detail <br> info (简介) <br> openid (创建者id) |
-| 3 | 按id查找场馆  | getVenueById | POST | id | 单条场馆信息 |
+| 3 | 按id查找场馆  | getVenueById | GET/POST | id | 单条场馆信息 |
 | 4 | 按name查找场馆 <br>（可能不止一个） | getVenueByName | POST | name | 场馆信息|
 | 5 | 场馆入驻 | addOneVenue | POST  | name<br>address<br>address_detail<br>info<br>openid<br>注意：上传的封面name为banner[ ]，图片name为photo[ ] | id：返回场馆id <br> 0：失败|
 | 6 | 学员申请绑定场馆 | stuApplyForVenue | POST | name：学员名字 <br> phone <br> openid <br> vid：场馆id <br> flag：（0->学员发起申请，1->场馆发起申请）| id：申请记录id <br> 0：失败 |

@@ -13,32 +13,38 @@ class IndexController extends Controller {
         echo 'index';
     }
 
-
-
     // 用户首次登录
     public function login() {
-        $code = $_POST['code'];
+        $code = I('code');
 
         $appid = 'wx2239c83348d61f24';
         $secret = 'd7d5c1e78bb42682890b9ba40f87ecfa';
         $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
 
         // get openid and session_key
-        $data = file_get_contents($url);
+        //$data = file_get_contents($url);
+        $data = $this->http_request($url);
+
         $jsonData = json_decode($data);
         $arr = get_object_vars($jsonData);
         $openid = $arr['openid'];
         $session_key = $arr['session_key'];
 
         $user = M('user');
-        $user->openid = $openid;
-        $user->session_key = $session_key;
-        $res = $user->add();
+        $res = $user->where("openid='%s'", $openid)->find();
         if ($res) {
-            echo $openid;;
+            echo $openid;
         } else {
-            echo '0'; // 用户openid存入数据库失败
+            $user->openid = $openid;
+            $user->session_key = $session_key;
+            $res1 = $user->add();
+            if ($res1) {
+                echo $openid;
+            } else {
+                echo '0'; // 用户openid存入数据库失败
+            }
         }
+
     }
 
     // HTTP请求（支持HTTP/HTTPS，支持GET/POST）
@@ -81,7 +87,7 @@ class IndexController extends Controller {
 
     // 按id查找场馆
     public function getVenueById() {
-        $id = $_POST['id'];
+        $id = I('id');
         $venue = M('venue');
         $data = $venue->where('id=%d', $id)->find();
         $this->ajaxReturn($data, 'json');
