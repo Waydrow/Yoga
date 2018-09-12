@@ -3,11 +3,10 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="ea8dc4de-5f4f-40fc-bb21-84a7fceacb67" name="Xungui_server" url="http://www.xungui.net">
-        <fileTransfer host="www.xungui.net" port="22" rootFolder="/alidata/www" accessType="SFTP">
+        <fileTransfer host="www.xungui.net" port="22" rootFolder="/alidata/www" accessType="SFTP" password="dfc9dfccdfcddf9bdf98df99df9edf9fdf84" username="root">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
-          <option name="port" value="22" />
         </fileTransfer>
       </webServer>
     </option>

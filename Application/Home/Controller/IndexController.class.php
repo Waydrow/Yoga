@@ -82,6 +82,18 @@ class IndexController extends Controller {
     public function getVenueList() {
         $venue = M('venue');
         $data = $venue->select();
+
+        foreach ($data as &$item) {
+            $vid = $item['id'];
+            $vs = M('venue_student');
+            $isBind = 0;
+            // 判断学员是否绑定过该场馆
+            $data1 = $vs->where('vid=%d AND state=1', $vid)->count();
+            if ($data1>0) {
+                $isBind = 1;
+            }
+            $item['isBind'] = $isBind;
+        }
         $this->ajaxReturn($data, 'json');
     }
 
@@ -98,6 +110,27 @@ class IndexController extends Controller {
         $name = $_POST['name'];
         $venue = M('venue');
         $data = $venue->where("name = '%s'", $name)->select();
+        $this->ajaxReturn($data, 'json');
+    }
+
+    // 按id或name查找场馆
+    public function getVenue() {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+
+        $venue = M('venue');
+
+        $data = '';
+
+        if ($id) {
+            $data = $venue->where('id=%d', $id)->select();
+        }
+
+        if ($name) {
+            $where['name'] = array('like', '%'.$name.'%');
+            $data = $venue->where($where)->select();
+        }
+
         $this->ajaxReturn($data, 'json');
     }
 
