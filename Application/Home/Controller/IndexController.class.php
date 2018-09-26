@@ -80,8 +80,14 @@ class IndexController extends Controller {
 
     // 获取场馆列表
     public function getVenueList() {
+        $page = I('page');
         $venue = M('venue');
-        $data = $venue->select();
+
+        $count = $venue->count();
+        // pageNum为页数，10条数据一页
+        $pageNum = (int) ceil($count/10);
+
+        $data = $venue->limit($page*10, 10)->select();
 
         foreach ($data as &$item) {
             $vid = $item['id'];
@@ -94,6 +100,9 @@ class IndexController extends Controller {
             }
             $item['isBind'] = $isBind;
         }
+
+        array_unshift($data, array('nums'=>$pageNum));
+        //dump($data);
         $this->ajaxReturn($data, 'json');
     }
 

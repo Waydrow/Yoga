@@ -12,7 +12,7 @@
 | # | Content | Time | Recorder|
 |---| --- |  --- | --- |
 | 1 | getVenue: 查找场馆id或name <br> getVenueList: 返回值增加isBind，场馆是否被绑定过 | 2018.09.12 | Zheng|
-
+| 2 | getVenueList: 传入page参数，分页返回并附加总页数| 2019.09.26| Zheng|
 
 ## 接口
 
@@ -20,7 +20,7 @@
 |---| ---  | --- | --- | ---| --- |
 | 0 | 用户首次登录 | login | GET/POST | code | openid <br> 0: 保存数据库失败|
 | 1 | 保存用户名 | addUserInfo | POST | openid <br> username (微信用户名) | 1: 成功 <br> 0: 失败|
-| 2 | 获取场馆列表  | getVenueList | GET | | id (场馆id) <br> name (场馆名字) <br> address <br> address_detail <br> info (简介) <br> openid (创建者id) <br> isBind: 0->未被绑定过，1->相反 |
+| 2 | 获取场馆列表  | getVenueList | POST | page(页数，从0开始) | 包含总页数nums, 每页10条<br>id (场馆id) <br> name (场馆名字) <br> address <br> address_detail <br> info (简介) <br> openid (创建者id) <br> isBind: 0->未被绑定过，1->相反 |
 | 3 | 按id查找场馆  | getVenueById | GET/POST | id | 单条场馆信息 |
 | 4 | 按name查找场馆 <br>（可能不止一个） | getVenueByName | POST | name | 场馆信息|
 | 5 | 场馆入驻 | addOneVenue | POST  | name<br>address<br>address_detail<br>info<br>openid<br>注意：上传的封面name为banner[ ]，图片name为photo[ ] | id：返回场馆id <br> 0：失败|
