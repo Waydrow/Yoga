@@ -143,6 +143,21 @@ class IndexController extends Controller {
         $this->ajaxReturn($data, 'json');
     }
 
+    // 首页信息
+    public function getHomePage() {
+        $id = $_POST['id'];
+        $venue = M('venue');
+        $data = $venue->where('id=%d', $id)->find();
+        $venue_photo = M('venue_photo');
+        $banner = $venue_photo->where('vid=%d AND flag=0', $id)->select();
+        $photos = $venue_photo->where('vid=%d AND flag=1', $id)->select();
+        $data['banner'] = $banner;
+        $data['photos'] = $photos;
+        /*array_push($data,'banner', $banner);
+        array_push($data, 'photos', $photos);*/
+        $this->ajaxReturn($data);
+    }
+
     // 场馆入驻
     public function addOneVenue() {
         $name = $_POST['name'];

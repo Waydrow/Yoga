@@ -12,7 +12,7 @@
 | # | Content | Time | Recorder|
 |---| --- |  --- | --- |
 | 1 | getVenue: 查找场馆id或name <br> getVenueList: 返回值增加isBind，场馆是否被绑定过 | 2018.09.12 | Zheng|
-| 2 | getVenueList: 传入page参数，分页返回并附加总页数| 2019.09.26| Zheng|
+| 2 | getVenueList: 传入page参数，分页返回并附加总页数 <br> 新增接口 getHomePage 返回首页信息| 2019.09.26| Zheng|
 
 ## 接口
 
@@ -29,3 +29,4 @@
 | 8 | 获取消息列表<br>（学员申请绑定场馆）| getStuApplyList | POST | vid：场馆id | id<br> vid：场馆id <br> openid <br> state：(0->待处理，1->通过，2->拒绝) <br> flag：(0->学员发起申请，1->场馆发起申请) <br> date：日期 <br> time：时间 <br> event：事件内容 |
 | 9 | 日志列表 | getLogList | POST | vid：场馆id | id <br> vid <br> date <br> time <br> event|
 | 10| 查找场馆 | getVenue | POST | id 或 name | 场馆信息|
+| 11 | 返回首页信息| getHomePage| POST | 场馆id | 场馆信息 包含封面和照片信息|
