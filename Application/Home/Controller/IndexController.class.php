@@ -101,9 +101,13 @@ class IndexController extends Controller {
             $item['isBind'] = $isBind;
         }
 
-        array_unshift($data, array('nums'=>$pageNum));
+        $newData = array();
+        $newData['num'] = $pageNum;
+        $newData['list'] = $data;
+
+        //array_unshift($data, array('nums'=>$pageNum));
         //dump($data);
-        $this->ajaxReturn($data, 'json');
+        $this->ajaxReturn($newData, 'json');
     }
 
     // 按id查找场馆
