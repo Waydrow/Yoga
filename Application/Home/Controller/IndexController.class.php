@@ -177,7 +177,16 @@ class IndexController extends Controller {
         $venue->info = $info;
         $venue->openid = $openid;
         $vid = $venue->add();
+        if ($vid) {
+            echo $vid; // 返回场馆id
+        } else {
+            echo '0';
+        }
+    }
 
+    // 场馆入驻时上传封面和照片
+    public function uploadVenuePhotos() {
+        $vid = $_POST['id'];
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize   =     113145728 ;// 设置附件上传大小
         $upload->exts      =     array('jpg', 'png', 'jpeg');// 设置附件上传类型
@@ -199,7 +208,7 @@ class IndexController extends Controller {
                 $venue_photo->add();
             }
 
-            echo $vid; // 返回场馆id
+            echo '1'; // 上传成功
 
         } else {
             echo '0'; // 上传图片失败
@@ -228,6 +237,11 @@ class IndexController extends Controller {
         $upload->rootPath  =      'Public/Uploads/'; // 设置附件上传根目录
         $photo   =   $upload->upload();
         if ($photo) {
+            echo '1';
+        } else {
+            echo '0';
+        }
+        /*if ($photo) {
             $len = count($photo);
             for ($i = 0; $i < $len; $i++) {
                 $dir = '/Public/Uploads/' . $photo[$i]['savepath'] . $photo[$i]['savename'];
@@ -237,7 +251,7 @@ class IndexController extends Controller {
                 }
             }
 
-        }
+        }*/
     }
 
     // 学员申请绑定场馆
