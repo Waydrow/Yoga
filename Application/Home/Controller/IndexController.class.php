@@ -184,7 +184,33 @@ class IndexController extends Controller {
         }
     }
 
-    // 场馆入驻时上传封面和照片
+    // 场馆入驻时上传封面
+    public function uploadVenueBanners() {
+        $vid = $_POST['id'];
+        $upload = new \Think\Upload();// 实例化上传类
+        $upload->maxSize   =     113145728 ;// 设置附件上传大小
+        $upload->exts      =     array('jpg', 'png', 'jpeg');// 设置附件上传类型
+        $upload->rootPath  =      'Public/Uploads/'; // 设置附件上传根目录
+        $photo   =   $upload->upload();
+        if ($photo) {
+            $venue_photo = M('venue_photo');
+            $len = count($photo);
+            for ($i = 0; $i < $len; $i++) {
+                $dir =  '/Public/Uploads/' . $photo[$i]['savepath'].$photo[$i]['savename'];
+                $venue_photo->vid = $vid;
+                $venue_photo->photo = $dir;
+                $venue_photo->flag = 0;
+                $venue_photo->add();
+            }
+
+            echo '1'; // 上传成功
+
+        } else {
+            echo '0'; // 上传图片失败
+        }
+    }
+
+    // 场馆入驻时上传照片
     public function uploadVenuePhotos() {
         $vid = $_POST['id'];
         $upload = new \Think\Upload();// 实例化上传类
@@ -200,11 +226,7 @@ class IndexController extends Controller {
                 $dir =  '/Public/Uploads/' . $photo[$i]['savepath'].$photo[$i]['savename'];
                 $venue_photo->vid = $vid;
                 $venue_photo->photo = $dir;
-                if ($photo[$i]['key'] == 'banner') {
-                    $venue_photo->flag = 0;
-                } else {
-                    $venue_photo->flag = 1;
-                }
+                $venue_photo->flag = 1;
                 $venue_photo->add();
             }
 

@@ -13,7 +13,7 @@
 |---| --- |  --- | --- |
 | 1 | getVenue: 查找场馆id或name <br> getVenueList: 返回值增加isBind，场馆是否被绑定过 | 2018.09.12 | Zheng|
 | 2 | getVenueList: 传入page参数，分页返回并附加总页数 <br> 新增接口 getHomePage 返回首页信息| 2019.09.26| Zheng|
-| 3 | 场馆入驻时文本与图片分开上传，详见接口5、12 | 2019.09.27 | Zheng |
+| 3 | 场馆入驻时文本与图片分开上传，详见接口5、12、13 | 2019.09.27 | Zheng |
 
 ## 接口
 
@@ -31,4 +31,5 @@
 | 9 | 日志列表 | getLogList | POST | vid：场馆id | id <br> vid <br> date <br> time <br> event|
 | 10| 查找场馆 | getVenue | POST | id 或 name | 场馆信息|
 | 11 | 返回首页信息| getHomePage| POST | 场馆id | 场馆信息 包含封面和照片信息|
-|12 | 场馆入驻时上传图片| uploadVenuePhotos | POST | 场馆id <br>注意：上传的封面name为banner，图片name为photo| 1：成功 <br> 0：失败 |
+|12 | 场馆入驻时上传图片| uploadVenuePhotos | POST | 场馆id | 1：成功 <br> 0：失败 |
+|13 | 场馆入驻时上传封面| uploadVenueBanners | POST | 场馆id | 1：成功 <br> 0：失败 |
