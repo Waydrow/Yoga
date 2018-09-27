@@ -186,23 +186,19 @@ class IndexController extends Controller {
 
     // 场馆入驻时上传封面
     public function uploadVenueBanners() {
-        $vid = $_POST['id'];
+        $vid = I('id');
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize   =     113145728 ;// 设置附件上传大小
         $upload->exts      =     array('jpg', 'png', 'jpeg');// 设置附件上传类型
         $upload->rootPath  =      'Public/Uploads/'; // 设置附件上传根目录
-        $photo   =   $upload->upload();
+        $photo   =   $upload->uploadOne($_FILES['banner']);
         if ($photo) {
             $venue_photo = M('venue_photo');
-            $len = count($photo);
-            for ($i = 0; $i < $len; $i++) {
-                $dir =  '/Public/Uploads/' . $photo[$i]['savepath'].$photo[$i]['savename'];
-                $venue_photo->vid = $vid;
-                $venue_photo->photo = $dir;
-                $venue_photo->flag = 0;
-                $venue_photo->add();
-            }
-
+            $dir =  '/Public/Uploads/' . $photo['savepath'].$photo['savename'];
+            $venue_photo->vid = $vid;
+            $venue_photo->photo = $dir;
+            $venue_photo->flag = 0;
+            $venue_photo->add();
             echo '1'; // 上传成功
 
         } else {
@@ -212,24 +208,20 @@ class IndexController extends Controller {
 
     // 场馆入驻时上传照片
     public function uploadVenuePhotos() {
-        $vid = $_POST['id'];
+        $vid = I('id');
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize   =     113145728 ;// 设置附件上传大小
         $upload->exts      =     array('jpg', 'png', 'jpeg');// 设置附件上传类型
         $upload->rootPath  =      'Public/Uploads/'; // 设置附件上传根目录
         // 上传图片，封面和图片的key分别为 banner, photo
-        $photo   =   $upload->upload();
+        $photo   =   $upload->uploadOne($_FILES['photo']);
         if ($photo) {
             $venue_photo = M('venue_photo');
-            $len = count($photo);
-            for ($i = 0; $i < $len; $i++) {
-                $dir =  '/Public/Uploads/' . $photo[$i]['savepath'].$photo[$i]['savename'];
-                $venue_photo->vid = $vid;
-                $venue_photo->photo = $dir;
-                $venue_photo->flag = 1;
-                $venue_photo->add();
-            }
-
+            $dir =  '/Public/Uploads/' . $photo['savepath'].$photo['savename'];
+            $venue_photo->vid = $vid;
+            $venue_photo->photo = $dir;
+            $venue_photo->flag = 1;
+            $venue_photo->add();
             echo '1'; // 上传成功
 
         } else {

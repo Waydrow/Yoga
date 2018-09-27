@@ -31,5 +31,5 @@
 | 9 | 日志列表 | getLogList | POST | vid：场馆id | id <br> vid <br> date <br> time <br> event|
 | 10| 查找场馆 | getVenue | POST | id 或 name | 场馆信息|
 | 11 | 返回首页信息| getHomePage| POST | 场馆id | 场馆信息 包含封面和照片信息|
-|12 | 场馆入驻时上传图片| uploadVenuePhotos | POST | 场馆id | 1：成功 <br> 0：失败 |
-|13 | 场馆入驻时上传封面| uploadVenueBanners | POST | 场馆id | 1：成功 <br> 0：失败 |
+|12 | 场馆入驻时上传图片| uploadVenuePhotos | POST | 场馆id, 图片key为photo | 1：成功 <br> 0：失败 |
+|13 | 场馆入驻时上传封面| uploadVenueBanners | POST | 场馆id, 图片key为banner | 1：成功 <br> 0：失败 |
