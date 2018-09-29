@@ -169,6 +169,8 @@ class IndexController extends Controller {
         $address_detail = $_POST['address_detail'];
         $info = $_POST['info'];
         $openid = $_POST['openid'];
+        $phone = $_POST['phone'];
+        $wechat = $_POST['wechat'];
 
         $venue = M('venue');
         $venue->name = $name;
@@ -176,6 +178,8 @@ class IndexController extends Controller {
         $venue->address_detail = $address_detail;
         $venue->info = $info;
         $venue->openid = $openid;
+        $venue->phone = $phone;
+        $venue->wechat = $wechat;
         $vid = $venue->add();
         if ($vid) {
             echo $vid; // 返回场馆id
